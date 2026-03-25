@@ -1,0 +1,78 @@
+Here are the complete class notes based on the video transcript regarding handling missing data, specifically focusing on Complete Case Analysis (CCA).
+1. Introduction to Handling Missing Data
+The Problem: Most machine learning algorithms (like those in scikit-learn) are not capable of handling missing data during training
+.
+Responsibility: It is the data scientist's responsibility to remove or fill missing values before feeding data into a model
+.
+General Strategies:
+Removal: Deleting the rows or columns containing missing values
+.
+Imputation: Filling in the missing values
+.
+Univariate Imputation: Focusing on one column at a time (e.g., using mean, median, mode, or random values)
+.
+Multivariate Imputation: Using other available features to predict missing values (e.g., KNN Imputer or Iterative Imputer/MICE)
+.
+
+--------------------------------------------------------------------------------
+2. Complete Case Analysis (CCA)
+CCA, also known as "listwise deletion," is the process of discarding entire observations (rows) where any of the variables (columns) are missing
+.
+Key Assumptions
+MCAR (Missing Completely At Random): The primary assumption for CCA is that data is missing completely at random
+.
+Distribution Preservation: If data is MCAR, removing rows should not change the statistical distribution of the remaining data compared to the original dataset
+.
+When to Use CCA
+When you are confident the data is missing randomly
+.
+The 5% Rule: Generally, CCA is preferred only when the missing data in a column is less than 5% of the total observations
+.
+Note: If a column has an extremely high percentage of missing data (e.g., 95%), you should consider removing the entire column rather than individual rows
+.
+
+--------------------------------------------------------------------------------
+3. Advantages and Disadvantages
+Advantages
+Disadvantages
+Very easy to implement (e.g., using dropna() in pandas)
+.
+Can lead to a massive loss of data if many rows have at least one missing value
+.
+No complex data manipulation required
+.
+May discard informative observations if data is not missing at random
+.
+Preserves the distribution of variables (if MCAR)
+.
+Production Risk: The model never learns how to handle missing data. If a missing value appears during real-world inference (production), the model won't know how to treat it
+.
+
+--------------------------------------------------------------------------------
+4. Practical Implementation & Validation
+When performing CCA, you must verify that the data distribution has not been significantly altered.
+For Numerical Data:
+Plot Histograms or Probability Density Functions (PDF) for the variable before and after applying CCA
+.
+If the distributions overlap almost perfectly, the CCA is valid
+.
+For Categorical Data:
+Calculate the ratio/proportion of each category within the column before and after CCA
+.
+The relative frequencies (e.g., the percentage of "Graduates" vs. "Masters") should remain stable
+.
+
+--------------------------------------------------------------------------------
+5. Summary of the 5-Part Series Plan
+The video mentions that this is the first of a five-part series on handling missing values
+:
+Part 1: Complete Case Analysis (Removing data)
+.
+Part 2: Simple Imputer (Univariate imputation)
+.
+Part 3: KNN Imputer
+.
+Part 4: Iterative Imputer (MICE)
+.
+Part 5: Missing Indicator
+.
